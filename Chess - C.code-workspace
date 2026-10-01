@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Chess/app/src/main/java/chess"
+		}
+	],
+	"settings": {}
+}
