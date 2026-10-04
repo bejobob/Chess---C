@@ -12,7 +12,7 @@ typedef struct LinkedList_Move{
     int length;
 } ArrayList;
 
-void add(ArrayList* list, Move move);
+void addToList(ArrayList* list, Move move);
 Node* dequeue(ArrayList* list);
 void removeAny(ArrayList* list, Move move);
 #endif
