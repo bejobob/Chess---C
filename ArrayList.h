@@ -14,4 +14,5 @@ typedef struct LinkedList_Move{
 
 void add(ArrayList* list, Move move);
 Node* dequeue(ArrayList* list);
+void removeAny(ArrayList* list, Move move);
 #endif

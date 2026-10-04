@@ -20,3 +20,16 @@ char* printMove(Move* move){
 
     return ("%c%c%i %c %c%i %c %c", piece, fileFrom, rankFrom, moveChar, fileTo, rankTo, promotionChar, promotionPiece);
 }
+
+bool MoveEquals(Move a, Move b){
+    return a.white == b.white &&
+           a.from == b.from &&
+           a.to == b.to &&
+           a.captureOn == b.captureOn &&
+           a.moveType == b.moveType &&
+           a.pieceType == b.pieceType &&
+           a.captureType == b.captureType &&
+           a.promotionType == b.promotionType &&
+           a.breaksSC == b.breaksSC &&
+           a.breaksLC == b.breaksLC;
+}

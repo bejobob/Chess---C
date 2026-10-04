@@ -25,5 +25,7 @@ typedef struct Move{
     bool breaksLC;
 }Move;
 
+bool MoveEquals(Move a, Move b);
+
 char* printMove(Move* move);
 #endif 

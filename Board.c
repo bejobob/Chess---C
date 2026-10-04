@@ -1,5 +1,7 @@
 #include "Board.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stddef.h>
 
 uint64_t getBitBoard(Board* board, PieceType pieceType, bool white){
     switch(pieceType){
