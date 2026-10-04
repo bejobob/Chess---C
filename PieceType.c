@@ -4,7 +4,9 @@ int getPieceValue(PieceType pieceType){
     switch (pieceType){
         case PAWN:
             return 1;
-        case KNIGHT||BISHOP:
+        case KNIGHT:
+            return 3;
+        case BISHOP:
             return 3;
         case ROOK:
             return 5;

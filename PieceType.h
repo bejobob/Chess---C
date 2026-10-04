@@ -2,6 +2,7 @@
 #define UTIL_H
 #include <stdbool.h>
 typedef enum PieceType{
+    NONE,
     PAWN,
     KNIGHT,
     BISHOP,

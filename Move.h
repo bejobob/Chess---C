@@ -2,6 +2,7 @@
 #define MOVE_H
 #include "PieceType.h"
 #include <stdbool.h>
+
 typedef enum MoveType{
     MOVE,
     CAPTURE,
@@ -15,8 +16,13 @@ typedef struct Move{
     bool white;
     int from;
     int to;
+    int captureOn;
     MoveType moveType;
     PieceType pieceType;
+    PieceType captureType;
+    PieceType promotionType;
+    bool breaksSC;
+    bool breaksLC;
 }Move;
 
 char* printMove(Move* move);
