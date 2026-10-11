@@ -57,37 +57,52 @@ void masterMoves(Game* game, ArrayList* toPopulate){
                     if (abs(((square + offset*i)%8)-(targetSquare % 8 )) > 2) break;
                     if (((1L << targetSquare) & otherPieces) != 0){
                         Move move = {white, square, targetSquare, targetSquare, CAPTURE, pieceType, getPieceOnSquare(game->board, targetSquare), NONE, breaksShortCastle, breaksLongCastle};
-                        addToList(toPopulate, );
+                        addToList(toPopulate, move);
+                        break;
+                    } else {
+                        Move move = {white, square, targetSquare, -1, MOVE, pieceType, NONE, NONE, breaksShortCastle, breaksLongCastle};
+                        addToList(toPopulate, move);
                     }
+                }
+            }
+            specificPieces &= ~(1L << (square));
+        }
+    }
+}
+
+ArrayList* castling(Game* game, ArrayList* toPopulate){
+    bool white = game->whiteToMove;
+    uint64_t king = getBitBoard(game->board, KING, game->whiteToMove);
+    uint64_t rooks = getBitBoard(game->board, ROOK, game->whiteToMove);
+    uint64_t pieces = white? game->board->whitePieces : game->board->blackPieces;
+    uint64_t otherPieces = white? game->board->blackPieces : game->board->whitePieces;
+    int square = countTrailingZeros(king);
+    if ((king&getMoveSquares(game, true)) == 0){
+        if (canCastleLong(game, white)){
+            if (((king >> 1 | king >> 2 | king >> 3)&(pieces|otherPieces)) == 0L){
+                if ((1L & rooks) != 0){
+                    Move move = {white, square, square-4, -1, LONG_CASTLE, KING, NONE, NONE, true, true};
+                    addToList(toPopulate, move);
+                }
+            }
+        }
+        if (canCastleShort(game, white)){
+            if (((king << 1 | king << 2)&(pieces|otherPieces)) == 0L){
+                if (((1L << 7) & rooks) != 0){
+                    Move move = {white, square, square+3, -1, SHORT_CASTLE, KING, NONE, NONE, true, true};
+                    addToList(toPopulate, move);
                 }
             }
         }
     }
-
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ArrayList* castling(Game* game);
-ArrayList* pawnMoves(Game* game);
-ArrayList* enPassant(Game* game);
+ArrayList* pawnMoves(Game* game, ArrayList* toPopulate){
+    Board board = *game->board;
+    bool white = game->whiteToMove;
+}
+ArrayList* enPassant(Game* game, ArrayList* toPopulate);
 uint64_t getMoveSquares(Game* game, bool other);
 ArrayList* getLegalMoves(Game* game);
 void makeMove(Move move, Game* game);
