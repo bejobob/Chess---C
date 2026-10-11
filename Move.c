@@ -1,5 +1,7 @@
 #include "Move.h"
 #include "PieceType.h"
+#include "Board.h"
+#include <stdlib.h>
 
 char* printMove(Move* move){
     if (move->moveType == SHORT_CASTLE) return "o-o";
@@ -19,6 +21,21 @@ char* printMove(Move* move){
     char promotionPiece = promotionType == NONE? '\0' : getPieceLetter(promotionType, move->white);
 
     return ("%c%c%i %c %c%i %c %c", piece, fileFrom, rankFrom, moveChar, fileTo, rankTo, promotionChar, promotionPiece);
+}
+
+Move* promotion(int from, int to, bool white, MoveType moveType, Board* board){
+    Move* toReturn = malloc(4 * sizeof(Move));
+    if (toReturn == NULL) return NULL;
+    if (moveType == PROMOTION){
+        for (int i = 0; i < 4; i++){
+            toReturn[i] = (Move) {white, from, to, -1, PROMOTION, PAWN, NONE, i+2, false, false};
+        }
+    } else if (moveType == CAPTURE_PROMOTION){
+        for (int i = 0; i < 4; i++){
+            toReturn[i] = (Move) {white, from, to, to, CAPTURE_PROMOTION, PAWN, getPieceOnSquare(board, to), false, false};
+        }
+    }
+    return toReturn;
 }
 
 bool MoveEquals(Move a, Move b){
