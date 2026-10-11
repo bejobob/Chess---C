@@ -128,7 +128,7 @@ ArrayList* pawnMoves(Game* game, ArrayList* toPopulate){
         }
         if (((1L<<(square+captureRight)) & otherPieces) != 0 && (abs(square%8 - (square+captureRight)%8) == 1)){
             if ((square+captureRight)/8 == promotionRank){
-                Move* toAdd = promotion(square, square+forward, white);
+                Move* toAdd = promotion(square, square+forward, white, board);
                 for (int i = 0; i < 4; i++){
 
                 }
