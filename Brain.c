@@ -99,16 +99,16 @@ ArrayList* castling(Game* game, ArrayList* toPopulate){
 
 
 ArrayList* pawnMoves(Game* game, ArrayList* toPopulate){
-    Board board = *game->board;
+    Board* board = game->board;
     bool white = game->whiteToMove;
-    uint64_t pawns = board.whitePawns;
+    uint64_t volatile pawns = board->whitePawns;
     short unsigned int startingRank = white? 1 : 6;
     short unsigned int promotionRank = white? 7 : 0;
     short forward = white? 8 : -8;
     short captureRight = white? 9 : -7;
     short captureLeft = white? 7 : -9;
-    short unsigned int square;
-    uint64_t otherPieces = white? board.whitePieces : board.blackPieces;
+    short unsigned volatile int square;
+    uint64_t otherPieces = white? board->whitePieces : board->blackPieces;
     while (pawns != 0){
         square = countTrailingZeros(pawns);
         if (getPieceOnSquare(&board, square) == NULL){
@@ -117,7 +117,7 @@ ArrayList* pawnMoves(Game* game, ArrayList* toPopulate){
                 addToList(toPopulate, move);
             }
             if ((square+forward)/8 == promotionRank){ //TODO: do C and Java division work the same?
-                Move* toAdd = promotion(square, square+forward, white, board);
+                Move* toAdd = promotion(square, square+forward, white, MOVE, board);
                 for (int i = 0; i < 4; i++){
                     addToList(toPopulate, toAdd[i]);
                 }
@@ -128,15 +128,38 @@ ArrayList* pawnMoves(Game* game, ArrayList* toPopulate){
         }
         if (((1L<<(square+captureRight)) & otherPieces) != 0 && (abs(square%8 - (square+captureRight)%8) == 1)){
             if ((square+captureRight)/8 == promotionRank){
-                Move* toAdd = promotion(square, square+forward, white, board);
+                Move* toAdd = promotion(square, square+captureRight, white, CAPTURE_PROMOTION, board);
                 for (int i = 0; i < 4; i++){
-
+                    addToList(toPopulate, toAdd[i]);
                 }
+            } else {
+                Move move = (Move) {white, square, square+captureRight, square+captureRight, CAPTURE, PAWN, getPieceOnSquare(&board, square+captureRight), NONE, false, false};
+                addToList(toPopulate, move);
             }
         }
+        if (((1L<<(square+captureLeft)) & otherPieces) != 0 && (abs(square%8 - (square+captureLeft)%8) == 1)){
+            if ((square+captureLeft)/8 == promotionRank){
+                Move* toAdd = promotion(square, square+captureLeft, white, CAPTURE_PROMOTION, board);
+                for (int i = 0; i < 4; i++){
+                    addToList(toPopulate, toAdd[i]);
+                }
+            } else {
+                Move move = (Move) {white, square, square+captureLeft, square+captureLeft, CAPTURE, PAWN, getPieceOnSquare(&board, square+captureLeft), NONE, false, false};
+                addToList(toPopulate, move);
+            }
+        }
+
+        pawns &= ~(1L<<square);
     }
 }
-ArrayList* enPassant(Game* game, ArrayList* toPopulate);
+ArrayList* enPassant(Game* game, ArrayList* toPopulate){
+    Board* board = game->board;
+    bool white = game->whiteToMove;
+    uint64_t volatile pawns = white? board->whitePawns : board->blackPawns;
+    uint8_t volatile square;
+
+}
+
 uint64_t getMoveSquares(Game* game, bool other);
 ArrayList* getLegalMoves(Game* game);
 void makeMove(Move move, Game* game);

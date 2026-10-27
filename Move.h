@@ -27,7 +27,7 @@ typedef struct Move{
 
 bool MoveEquals(Move a, Move b);
 
-Move* promotion(int from, int to, bool white);
+Move* promotion(int from, int to, bool white, MoveType moveType, Board* board);
 
 char* printMove(Move* move);
 #endif 
