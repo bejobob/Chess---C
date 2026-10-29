@@ -2,6 +2,7 @@
 #include "PieceType.h"
 #include "Board.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 char* printMove(Move* move){
     if (move->moveType == SHORT_CASTLE) return "o-o";
@@ -19,8 +20,10 @@ char* printMove(Move* move){
     int rankTo = (captureOn == -1? to : captureOn) /8 + 1;
     char promotionChar = promotionType == NONE? '\0' : '=';    
     char promotionPiece = promotionType == NONE? '\0' : getPieceLetter(promotionType, move->white);
+    char* result = malloc(13);
+    snprintf(result, 13, "%c%c%i %c %c%i %c %c", piece, fileFrom, rankFrom, moveChar, fileTo, rankTo, promotionChar, promotionPiece);
 
-    return ("%c%c%i %c %c%i %c %c", piece, fileFrom, rankFrom, moveChar, fileTo, rankTo, promotionChar, promotionPiece);
+    return (result);
 }
 
 Move* promotion(int from, int to, bool white, MoveType moveType, Board* board){
@@ -38,15 +41,15 @@ Move* promotion(int from, int to, bool white, MoveType moveType, Board* board){
     return toReturn;
 }
 
-bool MoveEquals(Move a, Move b){
-    return a.white == b.white &&
-           a.from == b.from &&
-           a.to == b.to &&
-           a.captureOn == b.captureOn &&
-           a.moveType == b.moveType &&
-           a.pieceType == b.pieceType &&
-           a.captureType == b.captureType &&
-           a.promotionType == b.promotionType &&
-           a.breaksSC == b.breaksSC &&
-           a.breaksLC == b.breaksLC;
+bool MoveEquals(Move* a, Move* b){
+    return a->white == b->white &&
+           a->from == b->from &&
+           a->to == b->to &&
+           a->captureOn == b->captureOn &&
+           a->moveType == b->moveType &&
+           a->pieceType == b->pieceType &&
+           a->captureType == b->captureType &&
+           a->promotionType == b->promotionType &&
+           a->breaksSC == b->breaksSC &&
+           a->breaksLC == b->breaksLC;
 }

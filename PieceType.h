@@ -12,7 +12,7 @@ typedef enum PieceType{
 } PieceType;
 
 int getPieceValue(PieceType pieceType);
-int getPieceLetter(PieceType pieceType, bool white);
+char getPieceLetter(PieceType pieceType, bool white);
 int getItter(PieceType pieceType);
 int* getOffsets(PieceType pieceType);
 #endif

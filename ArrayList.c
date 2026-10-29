@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-void addToList(ArrayList* list, Move move){
+void addToList(ArrayList* list, Move* move){
     if (list == NULL) return;
     Node* toAdd = malloc(sizeof(Node));
     if (toAdd == NULL) return;
@@ -40,7 +40,7 @@ Node* dequeue(ArrayList* list){
     return toReturn;
 }
 
-void removeAny(ArrayList* list, Move move){
+void removeAny(ArrayList* list, Move* move){
     if (list == NULL || list->first == NULL) return;
     for (Node* curr = list->first; curr != NULL; curr = curr->next){
         Node* next = curr->next;
@@ -57,8 +57,20 @@ void removeAny(ArrayList* list, Move move){
             }
             curr->next = NULL;
             curr->previous = NULL;
+            free(curr);
             list->length--;
             return;
         }
+    }
+}
+
+void destroy(ArrayList* list){
+    if (list == NULL || list->first == NULL) return;
+    Node* temp;
+    Node* head = list->first;
+    while (head != NULL) {
+        temp = head;          // Save current node
+        head = head->next;    // Advance to next node
+        free(temp);           // Free the saved node
     }
 }

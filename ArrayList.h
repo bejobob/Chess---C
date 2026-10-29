@@ -1,10 +1,11 @@
 #ifndef ARRAYLIST_H
 #define ARRAYLIST_H
 #include "Move.h"
+#include "Board.h"
 typedef struct Node{
-    Move move;
-    Node* next;
-    Node* previous; // TODO: do I need this? I don't think I ever go back...
+    Move* move;
+    struct Node* next;
+    struct Node* previous; // TODO: do I need this? I don't think I ever go back...
 }Node;
 typedef struct LinkedList_Move{
     Node* first;
@@ -12,7 +13,8 @@ typedef struct LinkedList_Move{
     int length;
 } ArrayList;
 
-void addToList(ArrayList* list, Move move);
+void addToList(ArrayList* list, Move* move);
 Node* dequeue(ArrayList* list);
-void removeAny(ArrayList* list, Move move);
+void removeAny(ArrayList* list, Move* move);
+void destroy(ArrayList* list);
 #endif

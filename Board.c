@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <stdio.h>
 
 uint64_t getBitBoard(Board* board, PieceType pieceType, bool white){
     switch(pieceType){
@@ -124,9 +125,12 @@ char* printBoard(Board* board){
 }
 
 char* numToAlgebraic(int square){
+    char* result = malloc(3);
+    if (result == NULL) return NULL;
     char file = (char) ('a' + square%8);
     int rank = square/8 + 1;
-    return ("%c%i", file, rank);
+    snprintf(result, 3, "%c%d", file, rank);
+    return (result);
 }
 bool equals(Board* a, Board* b){
     if (a == b){

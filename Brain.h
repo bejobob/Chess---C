@@ -6,14 +6,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-ArrayList* masterMoves(Game* game);
-ArrayList* castling(Game* game);
-ArrayList* pawnMoves(Game* game);
-ArrayList* enPassant(Game* game);
+ArrayList* masterMoves(Game* game, ArrayList* toPopulate);
+ArrayList* castling(Game* game, ArrayList* toPopulate);
+ArrayList* pawnMoves(Game* game, ArrayList* toPopulate);
+ArrayList* enPassant(Game* game, ArrayList* toPopulate);
 uint64_t getMoveSquares(Game* game, bool other);
 ArrayList* getLegalMoves(Game* game);
-void makeMove(Move move, Game* game);
-void unMove(Move move, Game* game);
+void makeMove(Move* move, Game* game);
+void unMove(Move* move, Game* game);
 bool isCheckMate(Game* game, ArrayList* legalMoves);
 bool isStaleMate(Game* game, ArrayList* legalMoves);
 bool isInsufficientMaterial(Board* board);

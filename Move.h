@@ -1,6 +1,7 @@
 #ifndef MOVE_H
 #define MOVE_H
 #include "PieceType.h"
+#include "Board.h"
 #include <stdbool.h>
 
 typedef enum MoveType{
@@ -23,9 +24,11 @@ typedef struct Move{
     PieceType promotionType;
     bool breaksSC;
     bool breaksLC;
+    int rook;
+    int king;
 }Move;
 
-bool MoveEquals(Move a, Move b);
+bool MoveEquals(Move* a, Move* b);
 
 Move* promotion(int from, int to, bool white, MoveType moveType, Board* board);
 

@@ -6,16 +6,16 @@ void changeTurn(Game* game){
     game->whiteToMove = !game->whiteToMove;
 }
 
-void addMove(Game* game, Move move){
-    add(game->playedMoves, move);
+void addMove(Game* game, Move* move){
+    addToList(game->playedMoves, move);
 }
 
-void removeMove(Game* game, Move move){
+void removeMove(Game* game, Move* move){
     removeAny(game->playedMoves, move);
 }
 
 Move* getLastMove(Game* game){
-    return (game->playedMoves->last);
+    return (game->playedMoves->last->move);
 }
 
 bool canCastleShort(Game* game, bool white){

@@ -18,8 +18,8 @@ typedef struct Game {
 
 void changeTurn(Game* game);
 
-void addMove(Game* game, Move move);
-void removeMove(Game* game, Move move);
+void addMove(Game* game, Move* move);
+void removeMove(Game* game, Move* move);
 
 Move* getLastMove(Game* game);
 
