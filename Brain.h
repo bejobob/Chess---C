@@ -19,4 +19,3 @@ bool isStaleMate(Game* game, ArrayList* legalMoves);
 bool isInsufficientMaterial(Board* board);
 bool isThreefoldRepetition(Game* game);
 bool gameOver(Game* game);
-char* printBoard(uint64_t board, char* header);

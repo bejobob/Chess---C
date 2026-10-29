@@ -11,8 +11,11 @@ typedef enum PieceType{
     KING 
 } PieceType;
 
+
+
 int getPieceValue(PieceType pieceType);
 char getPieceLetter(PieceType pieceType, bool white);
 int getItter(PieceType pieceType);
 int* getOffsets(PieceType pieceType);
+float* getPieceTable(PieceType pieceType);
 #endif

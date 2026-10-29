@@ -3,11 +3,12 @@
 
 #include "ArrayList.h"
 #include "Board.h"
+#include "PositionDict.h"
 #include <stdbool.h>
 
 typedef struct Game {
     ArrayList* playedMoves;
-    // TODO: create map struct
+    Dic
     Board* board;
     bool whiteToMove;
     bool wO_O;
