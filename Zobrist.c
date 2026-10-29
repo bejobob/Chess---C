@@ -1,8 +1,8 @@
 #include "Zobrist.h"
 #include "Brain.c"
 
-void initializeZobrist(void){
-    srand(123456789);
+void initializeZobrist(int seed){
+    srand(seed);
     for (int colour = 0; colour < 2; colour++){
         for (int piece = 0; piece < 6; piece++){
             for (int square = 0; square < 64; square++){

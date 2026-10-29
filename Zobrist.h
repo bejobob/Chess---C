@@ -10,7 +10,7 @@ uint64_t castlingRights[16];
 uint64_t enPassanT[8];
 uint64_t turn;
 
-void initializeZobrist(void);
+void initializeZobrist(int seed);
 uint64_t hash(Game* game);
 
 #endif
